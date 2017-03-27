@@ -3,6 +3,7 @@ body {
   flex-direction: column;
   padding: 0;
   margin: 0;
+  min-width: 700px;
   height: 100vh;
   box-sizing: border-box;
   color: #000;
@@ -50,11 +51,6 @@ main {
 .exercise>section:nth-child(2n) {
   width: calc(100% / 3);
   box-sizing: border-box;
-  border-left: 1px solid grey;
-}
-
-.exercise>section:nth-child(n + 3) {
-  border-top: 1px solid grey;
 }
 
 .editor-container,
@@ -70,6 +66,58 @@ main {
 .task h3 {
   margin-top: 0;
   margin-bottom: 15px;
+  border-bottom: 2px solid grey;
   font-weight: normal;
   font-size: inherit;
+}
+
+.editor-container code,
+.results code,
+.notes code,
+.task code {
+  color: #FF7979;
+  border-radius: 3px;
+  background-color: #f1f1f1;
+  font-family: monospace;
+}
+
+.template-content [class^="template-match"] {
+  color: #fff;
+  border-radius: 3px;
+}
+
+.template-content .template-match-correct {
+  color: #0AF951;
+}
+
+.template-content .template-match-incorrect {
+  color: #FF5C5C;
+}
+
+.templates-section .templates-list {
+  padding: 0;
+  list-style: none;
+}
+
+.templates-list .template:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.template{
+  display: flex;
+  justify-content: space-between;
+}
+
+.notes-list-section .notes-list {
+  list-style: none;
+  padding: 0;
+}
+
+.notes-list .note:not(:last-child) {
+  margin-bottom: 7px;
+}
+
+.note .note-explanation::before {
+  display: inline;
+  content: ' - ';
 }
