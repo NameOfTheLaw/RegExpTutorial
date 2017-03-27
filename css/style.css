@@ -31,6 +31,7 @@ main {
 }
 
 .exercise {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   height: 100%;
@@ -38,6 +39,38 @@ main {
   color: #000;
   background-color: #fff;
   box-shadow: 0 0 10px #ccc;
+}
+
+.btn-next-exercise {
+  position: absolute;
+  bottom: -30px;
+  right: 50px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #ff7043;
+}
+
+.btn-next-exercise::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 29px;
+  transform: rotate(40deg);
+  width: 25px;
+  height: 5px;
+  background-color: #fff;
+}
+
+.btn-next-exercise::after {
+  content: "";
+  position: absolute;
+  left: 26px;
+  top: 30px;
+  transform: rotate(-50deg);
+  width: 20px;
+  height: 5px;
+  background-color: #fff;
 }
 
 .exercise>section {
@@ -65,7 +98,7 @@ main {
 .notes h3,
 .task h3 {
   margin-top: 0;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   border-bottom: 2px solid grey;
   font-weight: normal;
   font-size: inherit;
@@ -96,6 +129,7 @@ main {
 
 .templates-section .templates-list {
   padding: 0;
+  margin: 0;
   list-style: none;
 }
 
@@ -108,9 +142,14 @@ main {
   justify-content: space-between;
 }
 
+.notes .current-note {
+  margin-bottom: 30px;
+}
+
 .notes-list-section .notes-list {
-  list-style: none;
   padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 .notes-list .note:not(:last-child) {
