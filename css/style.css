@@ -34,7 +34,6 @@ main {
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  height: 100%;
   padding: 30px;
   color: #000;
   background-color: #fff;
@@ -43,7 +42,7 @@ main {
 
 .btn-next-exercise {
   position: absolute;
-  bottom: -30px;
+  top: -30px;
   right: 50px;
   width: 60px;
   height: 60px;
@@ -146,6 +145,10 @@ main {
 .template{
   display: flex;
   justify-content: space-between;
+}
+
+.template .template-condition {
+  color: #d1d1d1;
 }
 
 .notes .current-note {
