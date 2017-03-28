@@ -25,6 +25,12 @@ body {
   font-size: inherit;
 }
 
+.main-header .course-name::after,
+.main-header .course-part-name::after {
+  content: ". ";
+  display: inline;
+}
+
 main {
   flex-grow: 1;
   padding: 60px;
@@ -36,7 +42,7 @@ main {
   flex-wrap: wrap;
   padding: 30px;
   color: #000;
-  background-color: #fff;
+  background-color: #fafafa;
   box-shadow: 0 0 10px #ccc;
 }
 
@@ -82,11 +88,11 @@ main {
   box-sizing: border-box;
 }
 
-.exercise>section:nth-child(n) {
+.exercise>.column-container:nth-child(n) {
   width: calc(100% / 3 * 2);
 }
 
-.exercise>section:nth-child(2n) {
+.exercise>.column-container:nth-child(2n) {
   width: calc(100% / 3);
   box-sizing: border-box;
 }
@@ -170,7 +176,16 @@ main {
   content: ' - ';
 }
 
-.code-editor {
+.code-editor input[type="text"] {
   width: 100%;
-  height: 100%;
+  height: 50px;
+  box-sizing: border-box;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 3px #eaeaea;
+  font-size: 24px;
+  font-family: monospace;
+  color: #000;
+  background-color: #fff;
 }
