@@ -15,7 +15,7 @@ body {
 .main-header {
   padding: 15px;
   color: #fff;
-  background-color: #545454;
+  background-color: #787878;
 }
 
 .main-header .course-name,
@@ -38,7 +38,7 @@ main {
   position: relative;
   display: flex;
   color: #000;
-  background-color: #fafafa;
+  background-color: #f2f2f2;
 }
 
 .btn-next-exercise {
@@ -89,7 +89,7 @@ main {
 
 .task,
 .dictionary {
-  background-color: #787878;
+  background-color: #545454;
   color: #fff;
 }
 
@@ -127,12 +127,33 @@ main {
 }
 
 [class^="template-match"] {
+  position: relative;
   color: #fff;
   border-radius: 3px;
 }
 
 .template-match-correct {
   color: #0AF951;
+}
+
+.template-match-correct::after {
+  content: attr(data-match-number);
+  position: absolute;
+  top: -32px;
+  left: 0;
+  display: none;
+  padding: 5px;
+  background-color: #545454;
+  color: #fff;
+}
+
+.template-match-correct:hover {
+  outline: 1px solid #545454;
+  outline-offset: -1px;
+}
+
+.template-match-correct:hover::after {
+  display: block;
 }
 
 .template-match-incorrect {
