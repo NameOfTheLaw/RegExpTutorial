@@ -16,93 +16,66 @@
     <main>
         <article class="exercise">
           <div class="column-container">
-            <section class="editor-container">
-              <section id="code-editor" class="code-editor">
-                <input type="text"/>
-              </section>
+            <section class="task">
+                <h3>Task</h3>
+                <section class="task-description">
+                    <code>[...]</code> match any character in the brackets. You could use with every other regexp constructions.
+                </section>
             </section>
-            <section class="notes">
-                <h3>Notes</h3>
-                <section class="current-note">
-                  <code>[...]</code>
-                  <span class="note-explanation">match any character in the brackets.</span>
-                </section>
-                <section class="notes-list-section">
-                  <ul class="notes-list">
+            <section class="dictionary">
+                <h3>Dictionary</h3>
+                <ul class="notes-list">
                     <li class="note">
-                      <code>.</code>
-                      <span class="note-explanation">match any character</span>
+                        <code>.</code>
+                        <span class="note-explanation">match any character</span>
                     </li>
                     <li class="note">
-                      <code>\d</code>
-                      <span class="note-explanation">match any digit</span>
+                        <code>\d</code>
+                        <span class="note-explanation">match any digit</span>
                     </li>
                     <li class="note">
-                      <code>\d</code>
-                      <span class="note-explanation">match any digit</span>
+                        <code>\d</code>
+                        <span class="note-explanation">match any digit</span>
                     </li>
                     <li class="note">
-                      <code>\d</code>
-                      <span class="note-explanation">match any digit</span>
+                        <code>\d</code>
+                        <span class="note-explanation">match any digit</span>
                     </li>
                     <li class="note">
-                      <code>\d</code>
-                      <span class="note-explanation">match any digit</span>
+                        <code>\d</code>
+                        <span class="note-explanation">match any digit</span>
                     </li>
                     <li class="note">
-                      <code>\d</code>
-                      <span class="note-explanation">match any digit</span>
+                        <code>\d</code>
+                        <span class="note-explanation">match any digit</span>
                     </li>
                     <li class="note">
-                      <code>\d</code>
-                      <span class="note-explanation">match any digit</span>
+                        <code>\d</code>
+                        <span class="note-explanation">match any digit</span>
                     </li>
                     <li class="note">
-                      <code>\d</code>
-                      <span class="note-explanation">match any digit</span>
+                        <code>\d</code>
+                        <span class="note-explanation">match any digit</span>
                     </li>
-                  </ul>
-                </section>
+                </ul>
             </section>
           </div>
           <div class="column-container">
-            <section class="results">
-                <h3>Result</h3>
-                <section class="templates-section">
-                    <ul class="templates-list">
-                      <li class="template">
-                        <span class="template-content"><strong class="template-match-correct">a</strong>aaa</span>
-                        <span class="template-condition">Match</span>
-                      </li>
-                      <li class="template">
-                        <span class="template-content"><strong class="template-match-correct">b</strong>bb</span>
-                        <span class="template-condition">Match</span>
-                      </li>
-                      <li class="template">
-                        <span class="template-content"><strong class="template-match-incorrect">c</strong>cc</span>
-                        <span class="template-condition">Match</span>
-                      </li>
-                    </ul>
+            <section class="editor">
+                <input class="code-input" id="code-editor" type="text" />
+            </section>
+            <section class="template">
+                <h3>Template</h3>
+                <section class="template-text">
+                    <p>Text example. <span class="template-match-correct">Text example</span>. Text example. Text example. Text example. Text example. Text example. Text example. Text example. Text example. Text example. Text example. Text example. Text example. Text example. Text example. Text example. Text example.</p>
+                    <p>Text example. Text example. Text example. Text example. Text example. Text example. Text example. Text example. Text example. <span class="template-match-incorrect">Text</span> example. Text example. Text example. Text example. Text example. Text example. Text example. Text example. Text example.</p>
                 </section>
             </section>
-            <section class="task">
-                <h3>Task</h3>
-                <section class="templates-section">
-                    <ul class="templates-list">
-                      <li class="template">
-                        <span class="template-content"><strong class="template-match-correct">a</strong>aaa</span>
-                        <span class="template-condition">Match</span>
-                      </li>
-                      <li class="template">
-                        <span class="template-content"><strong class="template-match-correct">b</strong>bb</span>
-                        <span class="template-condition">Match</span>
-                      </li>
-                      <li class="template">
-                        <span class="template-content">ccc</span>
-                        <span class="template-condition">Skip</span>
-                      </li>
-                    </ul>
-                </section>
+            <section class="progress">
+                <h3>Progress</h3>
+                <p>
+                    <span class="progress-count">2/5</span> matches.
+                </p>
             </section>
           </div>
             <a href="" class="btn-next-exercise"></a>
