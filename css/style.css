@@ -102,6 +102,20 @@ main {
   overflow-y: auto;
 }
 
+.exercise .task:not(:first-child),
+.exercise .dictionary:not(:first-child),
+.exercise .editor:not(:first-child),
+.exercise .template:not(:first-child),
+.exercise .progress:not(:first-child) {
+  padding-top: 0;
+}
+
+.exercise .dictionary:not(:first-child),
+.exercise .progress:not(:first-child) {
+  padding-top: 30px;
+  border-top: 2px solid grey;
+}
+
 .task,
 .dictionary,
 .editor,
@@ -117,7 +131,6 @@ main {
 .progress h3 {
   margin-top: 0;
   margin-bottom: 20px;
-  border-bottom: 2px solid grey;
   font-weight: normal;
   font-size: inherit;
 }
@@ -139,6 +152,10 @@ main {
   position: relative;
   color: #fff;
   border-radius: 3px;
+}
+
+.template .template-text p:last-child {
+  margin-bottom: 0;
 }
 
 .template-match-correct {
@@ -196,4 +213,12 @@ main {
   font-family: monospace;
   color: #000;
   background-color: #fff;
+}
+
+.progress-count.progress-count-complete::after {
+   content: "OK";
+   position: relative;
+   display: inline-block;
+   margin-left: 10px;
+   color: #0AF951;
 }
