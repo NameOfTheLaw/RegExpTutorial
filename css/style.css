@@ -8,8 +8,8 @@ body {
   box-sizing: border-box;
   color: #000;
   background-color: #f0f0f0;
-  font-size: 20px;
-  font-family: 'Helvetica';
+  font-size: 18px;
+  font-family: Arial;
 }
 
 .main-header {
@@ -21,7 +21,7 @@ body {
 .main-header .course-name,
 .main-header .course-part-name {
   display: inline;
-  font-size: inherit;
+  font-size: 1.2em;
 }
 
 .main-header .course-name::after,
@@ -121,7 +121,7 @@ main {
 .editor,
 .template,
 .progress {
-  padding: 30px;
+  padding: 20px;
 }
 
 .task h3,
@@ -132,7 +132,7 @@ main {
   margin-top: 0;
   margin-bottom: 20px;
   font-weight: normal;
-  font-size: inherit;
+  font-size: 1.2em;
 }
 
 .task code,
