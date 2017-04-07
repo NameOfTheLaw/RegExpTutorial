@@ -9,7 +9,7 @@ body {
     color: #000;
     background-color: #f0f0f0;
     font-size: 18px;
-    font-family: Arial;
+    font-family: helvetica;
 }
 
 .main-header {
@@ -33,11 +33,6 @@ main {
     display: flex;
     color: #000;
     background-color: #f2f2f2;
-}
-
-.exercise-description .course-name,
-.exercise-description .course-part-name {
-    font-size: 1.2em;
 }
 
 .btn-next-exercise {
@@ -223,4 +218,19 @@ main {
     display: inline-block;
     margin-left: 10px;
     color: #0AF951;
+}
+
+.progress h3 {
+  display: inline;
+}
+
+.progress .show-decision {
+  font-size: 1em;
+  font-weight: 100;
+  text-decoration: none;
+  color: #bbb;
+}
+
+.progress .show-decision:hover {
+  text-decoration: underline;
 }
