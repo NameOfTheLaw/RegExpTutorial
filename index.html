@@ -9,15 +9,13 @@
 
 <body>
     <header class="main-header">
-        <h1 class="course-name">RegExpTutorial</h1>
-        <h2 class="course-part-name">Один из множества элементов</h2>
-        <strong class="course-part-numeration">(1/6)</strong>
+        <h1 class="course-name">RegExpTutorial <span class="course-part-number">4/11</span></h1>
     </header>
     <main>
         <article class="exercise">
             <div class="column-container">
-                <section class="task">
-                    <h3>Один из множества элементов</h3>
+                <section class="exercise-description">
+                    <h2 class="course-part-name">Один из множества элементов</h2>
                     <section class="task-description">
                         <code>[...]</code> указывает на лишь на один из элементов внутри <code>[]</code>. Также, внутри <code>[]</code> можно использовать любые другие конструкции регулярных выражений.
                     </section>
@@ -46,22 +44,25 @@
             </div>
             <div class="column-container">
                 <section class="editor">
-                    <input class="code-input" id="code-editor" type="text" value="а[вб]"/>
+                    <input class="code-input" id="code-editor" type="text" value="а[вб]" />
                 </section>
                 <section class="template">
                     <h3>Текст для испытания</h3>
                     <section class="template-text">
-                      <p>Которых опровергается, как пр<span class="template-match-correct">ав</span>ило, в силу закона вина доля. Достаточно сильное методы определения их радиоизлучение. Объект нужно искать в этой полосе около. Друг к опровергается, как мы указывали выше, динамическими соображениями сила радиотелескопов неве­лика.</p>
-                      <p>Больше, чем у таких звезд с высокими. Была выдвинута гипотеза о так как пр<span class="template-match-correct">ав</span>ило, н<span class="template-match-correct">аб</span>людались лишь. Другой стороны, оптически н<span class="template-match-correct">аб</span>людать объекты нельзя решить, какой именно из 1950. Объект нужно искать в все-таки слишком сл<span class="template-match-correct">аб</span>ым, останется неуловимым температурами, а доля.</p>
+                        <p>Которых опровергается, как пр<span class="template-match-correct" data-match-number="1">ав</span>ило, в силу закона вина доля. Достаточно сильное методы определения их радиоизлучение. Объект нужно искать в этой полосе около. Друг к опровергается, как
+                            мы указывали выше, динамическими соображениями сила радиотелескопов неве­лика.</p>
+                        <p>Больше, чем у таких звезд с высокими. Была выдвинута гипотеза о так как пр<span class="template-match-correct" data-match-number="2">ав</span>ило, н<span class="template-match-correct" data-match-number="3">аб</span>людались лишь. Другой стороны, оптически н<span class="template-match-correct" data-match-number="4">аб</span>людать
+                            объекты нельзя решить, какой именно из 1950. Объект нужно искать в все-таки слишком сл<span class="template-match-correct" data-match-number="5">аб</span>ым, останется неуловимым температурами, а доля.</p>
                     </section>
                 </section>
                 <section class="progress">
-                    <h3>Задание: </h3>
+                    <h3>Задание</h3>
                     <p>Найдите в тексте все сочетания букв из этого списка: аб, ав.</p>
                     <p class="progress-count progress-count-complete">5/5 совпадений</p>
+
+                    <a href="" class="btn-next-exercise"></a>
                 </section>
             </div>
-            <a href="" class="btn-next-exercise"></a>
         </article>
     </main>
     <script src="js\scripts.js" type="text/javascript" charset="utf-8"></script>
