@@ -24,13 +24,13 @@ body {
 }
 
 main {
-    /* TODO: why is !important needed */
-    display: flex !important;
+    display: flex;
     flex-grow: 1;
 }
 
 .exercise {
     display: flex;
+    flex-grow: 1;
     color: #000;
     background-color: #f2f2f2;
 }
