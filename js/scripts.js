@@ -1,4 +1,12 @@
-initExersize()
+let materials, stages, dictionary, stageIndex;
+
+initExersize();
+initEditorListener();
+
+function initEditorListener() {
+  editor = document.querySelector('.code-input');
+  editor.addEventListener('input', onEditorInput);
+}
 
 function initExersize() {
   materials = loadMaterials();
@@ -62,4 +70,46 @@ function loadJSON(jsonURL) {
    xobj.send(null);
 
    return xobj.responseText;
+}
+
+function onEditorInput() {
+  editor = document.querySelector('.code-input');
+  textField = document.querySelector('.template-text');
+  text = stages[stageIndex].text;
+
+  if (editor.value) {
+    userRegExp = new RegExp(editor.value, 'g')
+
+    console.log(text);
+
+    lastIndex = 0;
+    count = 0;
+    editedText = '';
+    while ((match = userRegExp.exec(text)) !== null) {
+      count++;
+      indexes = getIndexesOfTheMatch(match);
+
+      editedText += text.substr(lastIndex, indexes.start - lastIndex);
+      editedText += '<span class="template-match-correct" data-match-number="'
+      + count + '">' + text.substr(indexes.start, indexes.length) + '</span>';
+      lastIndex = indexes.start + indexes.length;
+      console.log(indexes.start + "|" + indexes.length + "|" + lastIndex)
+    }
+
+    editedText += text.substr(lastIndex, text.length - lastIndex);
+
+    textField.innerHTML = editedText;
+
+    console.log(count)
+  } else {
+    textField.innerHTML = text;
+  }
+}
+
+function getIndexesOfTheMatch(match) {
+  indexes = {
+    start: match["index"],
+    length: match[0].length
+  }
+  return indexes;
 }
