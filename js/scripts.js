@@ -7,7 +7,7 @@ function renderStage(stage, dictionary) {
   renderDictionary(dictionary, stage.dictionary_last_index);
 }
 
-function renderDictionary(stage, lastIndex) {
+function renderDictionary(dictionary, lastIndex) {
   notesList = document.querySelector('.notes-list');
 
   for (i = 0; i <= lastIndex; i++) {
@@ -27,4 +27,20 @@ function renderDictionary(stage, lastIndex) {
     document.querySelector('.notes-list').appendChild(note);
   }
 
+}
+
+function loadMaterials() {
+  rawJSON = loadJSON('resources/course_materials.json');
+  materials = JSON.parse(rawJSON);
+  return materials;
+}
+
+function loadJSON(jsonURL) {
+   var xobj = new XMLHttpRequest();
+
+   xobj.overrideMimeType("application/json");
+   xobj.open('GET', jsonURL, false);
+   xobj.send(null);
+
+   return xobj.responseText;
 }
