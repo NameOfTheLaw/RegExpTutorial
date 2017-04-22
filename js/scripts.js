@@ -1,3 +1,22 @@
+initExersize()
+
+function initExersize() {
+  materials = loadMaterials();
+  stages = materials.stages;
+
+  dictionary = materials.dictionary;
+  stageIndex = 0;
+  stage = stages[stageIndex];
+
+  renderExersize(stageIndex, stages.length);
+  renderStage(stage, dictionary);
+}
+
+function renderExersize(stageIndex, stagesCount) {
+  courseProgressStr =  (stageIndex + 1) + "/" + stagesCount;
+  document.querySelector('.course-part-number').innerHTML = courseProgressStr;
+}
+
 function renderStage(stage, dictionary) {
   document.querySelector('.stage-name').innerHTML = stage.name;
   document.querySelector('.stage-description').innerHTML = stage.description;
