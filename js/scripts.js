@@ -1,15 +1,15 @@
-let stages, stageIndex, stageResult, dictionary, stageIsComplete;
+let stages, stageIndex, stageResult, dictionary, stageIsComplete, finishPopup;
 
 initExersize();
 
 function initExersize() {
   materials = loadMaterials();
   stages = materials.stages;
-
+  finishPopup = materials.finishPopup;
+  console.log(finishPopup);
   dictionary = materials.dictionary;
 
   stageIndex = getStageIndexFromUrl();
-  console.log(stageIndex)
   if (isNaN(stageIndex) || stageIndex <= 0 || stageIndex > stages.length) {
     stageIndex = 0;
   } else {
@@ -167,7 +167,29 @@ function moveToNextStage() {
 }
 
 function finishExercise() {
-  // TODO: add finish popup
+  popup = document.createElement('section');
+  popup.classList.add('finish-popup');
+
+  popupBack = document.createElement('div');
+  popupBack.classList.add('popup-back');
+  popup.appendChild(popupBack);
+
+  popupContent = document.createElement('section');
+  popupContent.classList.add('popup-content');
+
+  title = document.createElement('h3');
+  title.innerHTML = finishPopup.title;
+  popupContent.appendChild(title);
+
+  for (i = 0; i < finishPopup.content.length; i++) {
+    paragraph = document.createElement('p');
+    paragraph.innerHTML = finishPopup.content[i];
+    popupContent.appendChild(paragraph);
+  }
+
+  popup.appendChild(popupContent);
+
+  document.body.appendChild(popup);
 }
 
 function clearEditor() {
