@@ -1,7 +1,14 @@
-let materials, stages, dictionary, stageIndex;
+let stages, stageIndex, stageResult, dictionary;
 
 initExersize();
-initEditorListener();
+
+function initStage(stage, stageIndex, stagesCount, dictionary) {
+  stage = stages[stageIndex];
+  stageResult = getResultFromText(stage.regexp, stage.text);
+
+  renderStageNumeration(stageIndex, stages.length);
+  renderStage(stage, dictionary);
+}
 
 function initEditorListener() {
   editor = document.querySelector('.code-input');
@@ -16,11 +23,11 @@ function initExersize() {
   stageIndex = 0;
   stage = stages[stageIndex];
 
-  renderExersize(stageIndex, stages.length);
-  renderStage(stage, dictionary);
+  initStage(stage, stageIndex, stages.length, dictionary);
+  initEditorListener();
 }
 
-function renderExersize(stageIndex, stagesCount) {
+function renderStageNumeration(stageIndex, stagesCount) {
   courseProgressStr =  (stageIndex + 1) + "/" + stagesCount;
   document.querySelector('.course-part-number').innerHTML = courseProgressStr;
 }
@@ -32,6 +39,8 @@ function renderStage(stage, dictionary) {
   document.querySelector('.task').innerHTML = stage.task;
 
   renderDictionary(dictionary, stage.dictionary_last_index);
+
+  updateUserProgress(0)
 }
 
 function renderDictionary(dictionary, lastIndex) {
@@ -48,7 +57,7 @@ function renderDictionary(dictionary, lastIndex) {
     noteExplanation.className = 'note-explanation';
     noteExplanation.innerHTML = dictionary[i].explanation;
 
-    note.appendChild(noteRegExp)
+    note.appendChild(noteRegExp);
     note.appendChild(noteExplanation);
 
     document.querySelector('.notes-list').appendChild(note);
@@ -75,34 +84,92 @@ function loadJSON(jsonURL) {
 function onEditorInput() {
   editor = document.querySelector('.code-input');
   textField = document.querySelector('.template-text');
-  text = stages[stageIndex].text;
+  stage = stages[stageIndex];
 
   if (editor.value) {
-    userRegExp = new RegExp(editor.value, 'g')
+    userResult = getResultFromText(editor.value, stage.text);
 
-    console.log(text);
+    textField.innerHTML = userResult.editedText;
+    updateUserProgress(userResult.count);
 
-    lastIndex = 0;
-    count = 0;
-    editedText = '';
-    while ((match = userRegExp.exec(text)) !== null) {
-      count++;
-      indexes = getIndexesOfTheMatch(match);
-
-      editedText += text.substr(lastIndex, indexes.start - lastIndex);
-      editedText += '<span class="template-match-correct" data-match-number="'
-      + count + '">' + text.substr(indexes.start, indexes.length) + '</span>';
-      lastIndex = indexes.start + indexes.length;
-      console.log(indexes.start + "|" + indexes.length + "|" + lastIndex)
+    if (isIndexesEquals(userResult.indexesList, stageResult.indexesList)) {
+      stageComplete();
+      document.querySelector('.progress-commentary').innerHTML = 'Задание успешно выполнено!';
     }
-
-    editedText += text.substr(lastIndex, text.length - lastIndex);
-
-    textField.innerHTML = editedText;
-
-    console.log(count)
   } else {
-    textField.innerHTML = text;
+    textField.innerHTML = stage.text;
+
+    updateUserProgress(0);
+  }
+}
+
+function stageComplete() {
+  //TODO: appearing stage changing button
+}
+
+function isIndexesEquals(indexes1, indexes2) {
+  if (indexes1.length != indexes2.length) return false;
+
+  for (i = 0; i < indexes1.length && i < indexes2.length; i++) {
+    if (indexes1[i].start != indexes2[i].start) return false;
+    if (indexes1[i].length != indexes2[i].length) return false;
+  }
+  return true;
+}
+
+function getResultFromText(regexp, text) {
+  indexesList = []
+  regexp = new RegExp(regexp, 'g');
+
+  lastIndex = 0;
+  editedText = '';
+  while ((match = regexp.exec(text)) !== null) {
+    indexes = getIndexesOfTheMatch(match);
+    indexesList.push(indexes);
+
+    editedText += text.substr(lastIndex, indexes.start - lastIndex);
+    editedText += '<span class="template-match-correct" data-match-number="'
+    + indexesList.length + '">' + text.substr(indexes.start, indexes.length) + '</span>';
+    lastIndex = indexes.start + indexes.length;
+  }
+
+  editedText += text.substr(lastIndex, text.length - lastIndex);
+
+  count = -1;
+  if (stageResult != null) {
+    count = correlatesIndexesCount(indexesList, stageResult.indexesList);
+  }
+
+  return {
+    indexesList: indexesList,
+    editedText: editedText,
+    count: count
+  };
+}
+
+function correlatesIndexesCount(indexes1, indexes2) {
+  count = 0;
+  for (i = 0; i < indexes1.length; i++)
+    for (j = 0; j < indexes2.length; j++)
+      if (indexes1[i].start == indexes2[j].start && indexes1[i].length == indexes2[j].length) {
+        count++;
+        break;
+      }
+  return count;
+}
+
+function updateUserProgress(matchesCount) {
+  stageText = stages[stageIndex].text;
+  stageRegexp = new RegExp(stages[stageIndex].regexp, 'g');
+  purposeCount = stageText.match(stageRegexp).length;
+  progressReport = matchesCount + '/' + purposeCount + ' совпадений.';
+
+  progressField = document.querySelector('.progress-count');
+  progressField.innerHTML = progressReport;
+  if (matchesCount == purposeCount) {
+    progressField.classList.add('progress-count-complete');
+  } else {
+    progressField.classList.remove('progress-count-complete');
   }
 }
 
