@@ -7,8 +7,23 @@ function initStage(stage, stageIndex, stagesCount, dictionary) {
   stage = stages[stageIndex];
   stageResult = getResultFromText(stage.regexp, stage.text);
 
+  initShowAnswerListener();
+
   renderStageNumeration(stageIndex, stages.length);
   renderStage(stage, dictionary);
+}
+
+function initShowAnswerListener() {
+  showAnswerButton = document.querySelector('.show-decision');
+  showAnswerButton.addEventListener('click', onShowAnswerClick);
+}
+
+function onShowAnswerClick(event) {
+  event.preventDefault();
+  editor = document.querySelector('.code-input');
+  editor.value = stages[stageIndex].regexp;
+
+  onEditorInput();
 }
 
 function initEditorListener() {
