@@ -43,8 +43,16 @@ main {
     height: 60px;
     border-radius: 50%;
     background-color: #4EFF84;
-    transition: transform 0.3s;
     box-shadow: 0 3px 7px #999;
+
+    transition: transform 0.3s;
+    transform: scale(0);
+
+    cursor: pointer;
+}
+
+.btn-next-exercise-scaled {
+    transform: scale(1);
 }
 
 .btn-next-exercise:hover {

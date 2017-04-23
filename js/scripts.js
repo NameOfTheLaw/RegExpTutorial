@@ -104,7 +104,16 @@ function onEditorInput() {
 }
 
 function stageComplete() {
-  //TODO: appearing stage changing button
+  nextStageButtonAppears();
+}
+
+function nextStageButtonAppears() {  
+  nextStageButton = document.createElement('a');
+  nextStageButton.classList.add('btn-next-exercise');
+  document.querySelector('.progress').appendChild(nextStageButton);
+  window.setTimeout(function() {
+    nextStageButton.classList.add('btn-next-exercise-scaled');
+  }, 100 );
 }
 
 function isIndexesEquals(indexes1, indexes2) {
