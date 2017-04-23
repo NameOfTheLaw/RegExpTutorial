@@ -1,8 +1,9 @@
-let stages, stageIndex, stageResult, dictionary;
+let stages, stageIndex, stageResult, dictionary, stageIsComplete;
 
 initExersize();
 
 function initStage(stage, stageIndex, stagesCount, dictionary) {
+  stageIsComplete = false;
   stage = stages[stageIndex];
   stageResult = getResultFromText(stage.regexp, stage.text);
 
@@ -28,7 +29,7 @@ function initExersize() {
 }
 
 function renderStageNumeration(stageIndex, stagesCount) {
-  courseProgressStr =  (stageIndex + 1) + "/" + stagesCount;
+  courseProgressStr = (stageIndex + 1) + "/" + stagesCount;
   document.querySelector('.course-part-number').innerHTML = courseProgressStr;
 }
 
@@ -72,13 +73,13 @@ function loadMaterials() {
 }
 
 function loadJSON(jsonURL) {
-   var xobj = new XMLHttpRequest();
+  var xobj = new XMLHttpRequest();
 
-   xobj.overrideMimeType("application/json");
-   xobj.open('GET', jsonURL, false);
-   xobj.send(null);
+  xobj.overrideMimeType("application/json");
+  xobj.open('GET', jsonURL, false);
+  xobj.send(null);
 
-   return xobj.responseText;
+  return xobj.responseText;
 }
 
 function onEditorInput() {
@@ -94,7 +95,6 @@ function onEditorInput() {
 
     if (isIndexesEquals(userResult.indexesList, stageResult.indexesList)) {
       stageComplete();
-      document.querySelector('.progress-commentary').innerHTML = 'Задание успешно выполнено!';
     }
   } else {
     textField.innerHTML = stage.text;
@@ -104,16 +104,55 @@ function onEditorInput() {
 }
 
 function stageComplete() {
-  nextStageButtonAppears();
+  if (!stageIsComplete) {
+    initNextStageButton();
+    appendProgressCommentary('Задание успешно выполнено!');
+    stageIsComplete = true;
+  }
 }
 
-function nextStageButtonAppears() {  
+function appendProgressCommentary(comment) {
+  document.querySelector('.progress-commentary').innerHTML = comment;
+}
+
+function clearProgressCommentary() {
+  document.querySelector('.progress-commentary').innerHTML = '';
+}
+
+function moveToNextStage() {
+  stageIndex++;
+  initStage(stages[stageIndex], stageIndex, stages.length, dictionary);
+
+  destroyNextStageButton();
+  clearProgressCommentary();
+  clearEditor();
+}
+
+function clearEditor() {
+  document.querySelector('.code-input').value = '';
+}
+
+function initNextStageButton() {
   nextStageButton = document.createElement('a');
   nextStageButton.classList.add('btn-next-exercise');
   document.querySelector('.progress').appendChild(nextStageButton);
   window.setTimeout(function() {
     nextStageButton.classList.add('btn-next-exercise-scaled');
-  }, 100 );
+  }, 100);
+
+  nextStageButton.addEventListener('click', moveToNextStage);
+}
+
+function destroyNextStageButton() {
+  progressSection = document.querySelector('.progress');
+  nextStageButton = document.querySelector('.btn-next-exercise');
+  nextStageButton.classList.remove('btn-next-exercise-scaled');
+
+  window.setTimeout(function() {
+    progressSection.removeChild(nextStageButton);
+  }, 300);
+
+  nextStageButton.addEventListener('click', moveToNextStage);
 }
 
 function isIndexesEquals(indexes1, indexes2) {
@@ -137,8 +176,8 @@ function getResultFromText(regexp, text) {
     indexesList.push(indexes);
 
     editedText += text.substr(lastIndex, indexes.start - lastIndex);
-    editedText += '<span class="template-match-correct" data-match-number="'
-    + indexesList.length + '">' + text.substr(indexes.start, indexes.length) + '</span>';
+    editedText += '<span class="template-match-correct" data-match-number="' +
+      indexesList.length + '">' + text.substr(indexes.start, indexes.length) + '</span>';
     lastIndex = indexes.start + indexes.length;
   }
 
