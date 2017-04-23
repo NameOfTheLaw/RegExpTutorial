@@ -2,6 +2,30 @@ let stages, stageIndex, stageResult, dictionary, stageIsComplete;
 
 initExersize();
 
+function initExersize() {
+  materials = loadMaterials();
+  stages = materials.stages;
+
+  dictionary = materials.dictionary;
+
+  stageIndex = getStageIndexFromUrl();
+  console.log(stageIndex)
+  if (isNaN(stageIndex) || stageIndex <= 0 || stageIndex > stages.length) {
+    stageIndex = 0;
+  } else {
+    stageIndex -= 1;
+  }
+  stage = stages[stageIndex];
+
+  initStage(stage, stageIndex, stages.length, dictionary);
+  initEditorListener();
+}
+
+function getStageIndexFromUrl() {
+  index = window.location.hash;
+  return parseInt(index.replace('#',''));
+}
+
 function initStage(stage, stageIndex, stagesCount, dictionary) {
   stageIsComplete = false;
   stage = stages[stageIndex];
@@ -11,6 +35,12 @@ function initStage(stage, stageIndex, stagesCount, dictionary) {
 
   renderStageNumeration(stageIndex, stages.length);
   renderStage(stage, dictionary);
+
+  updatePageAddress(stageIndex+1);
+}
+
+function updatePageAddress(index) {
+  window.location.hash = index;
 }
 
 function initShowAnswerListener() {
@@ -29,18 +59,6 @@ function onShowAnswerClick(event) {
 function initEditorListener() {
   editor = document.querySelector('.code-input');
   editor.addEventListener('input', onEditorInput);
-}
-
-function initExersize() {
-  materials = loadMaterials();
-  stages = materials.stages;
-
-  dictionary = materials.dictionary;
-  stageIndex = 0;
-  stage = stages[stageIndex];
-
-  initStage(stage, stageIndex, stages.length, dictionary);
-  initEditorListener();
 }
 
 function renderStageNumeration(stageIndex, stagesCount) {
@@ -136,11 +154,20 @@ function clearProgressCommentary() {
 
 function moveToNextStage() {
   stageIndex++;
-  initStage(stages[stageIndex], stageIndex, stages.length, dictionary);
 
-  destroyNextStageButton();
-  clearProgressCommentary();
-  clearEditor();
+  if (stageIndex == stages.length) {
+    finishExercise();
+  } else {
+    initStage(stages[stageIndex], stageIndex, stages.length, dictionary);
+
+    destroyNextStageButton();
+    clearProgressCommentary();
+    clearEditor();
+  }
+}
+
+function finishExercise() {
+  // TODO: add finish popup
 }
 
 function clearEditor() {
