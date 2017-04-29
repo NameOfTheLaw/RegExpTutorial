@@ -288,3 +288,7 @@ main {
 .secondary-text {
   color: #bbb;
 }
+
+.inline-link {
+  color: inherit;
+}
