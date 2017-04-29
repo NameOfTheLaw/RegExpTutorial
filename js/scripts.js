@@ -6,7 +6,6 @@ function initExersize() {
   materials = loadMaterials();
   stages = materials.stages;
   finishPopup = materials.finishPopup;
-  console.log(finishPopup);
   dictionary = materials.dictionary;
 
   stageIndex = getStageIndexFromUrl();
@@ -19,6 +18,7 @@ function initExersize() {
 
   initStage(stage, stageIndex, stages.length, dictionary);
   initEditorListener();
+  initShowAnswerListener();
 }
 
 function getStageIndexFromUrl() {
@@ -30,8 +30,6 @@ function initStage(stage, stageIndex, stagesCount, dictionary) {
   stageIsComplete = false;
   stage = stages[stageIndex];
   stageResult = getResultFromText(stage.regexp, stage.text);
-
-  initShowAnswerListener();
 
   renderStageNumeration(stageIndex, stages.length);
   renderStage(stage, dictionary);
@@ -79,6 +77,10 @@ function renderStage(stage, dictionary) {
 
 function renderDictionary(dictionary, lastIndex) {
   notesList = document.querySelector('.notes-list');
+  
+  while (notesList.firstChild) {
+    notesList.removeChild(notesList.firstChild);
+  }
 
   for (i = 0; i <= lastIndex; i++) {
     note = document.createElement('li');
@@ -94,7 +96,7 @@ function renderDictionary(dictionary, lastIndex) {
     note.appendChild(noteRegExp);
     note.appendChild(noteExplanation);
 
-    document.querySelector('.notes-list').appendChild(note);
+    notesList.appendChild(note);
   }
 
 }
