@@ -182,11 +182,10 @@ function clearProgressCommentary() {
 }
 
 function moveToNextStage() {
-  stageIndex++;
-
-  if (stageIndex == stages.length) {
+  if (stageIndex + 1 == stages.length) {
     finishExercise();
   } else {
+    stageIndex++;
     initStage(stages[stageIndex], stageIndex, stages.length, dictionary);
 
     destroyNextStageButton();
@@ -211,6 +210,7 @@ function finishExercise() {
 
   popupBack = document.createElement('div');
   popupBack.classList.add('popup-back');
+  popupBack.addEventListener('click', removeFinishPopup);
   popup.appendChild(popupBack);
 
   popupContent = document.createElement('section');
@@ -231,6 +231,11 @@ function finishExercise() {
   document.body.appendChild(popup);
 }
 
+function removeFinishPopup() {
+  popup = document.querySelector('.finish-popup');
+  document.body.removeChild(popup);
+}
+
 function clearEditor() {
   document.querySelector('.code-input').value = '';
 }
@@ -249,13 +254,15 @@ function initNextStageButton() {
 function destroyNextStageButton() {
   progressSection = document.querySelector('.progress');
   nextStageButton = document.querySelector('.btn-next-exercise');
-  nextStageButton.classList.remove('btn-next-exercise-scaled');
+  if (nextStageButton) {
+    nextStageButton.classList.remove('btn-next-exercise-scaled');
 
-  window.setTimeout(function() {
-    progressSection.removeChild(nextStageButton);
-  }, 300);
+    window.setTimeout(function() {
+      progressSection.removeChild(nextStageButton);
+    }, 300);
 
-  nextStageButton.addEventListener('click', moveToNextStage);
+    nextStageButton.addEventListener('click', moveToNextStage);
+  }
 }
 
 function isIndexesEquals(indexes1, indexes2) {
