@@ -29,7 +29,7 @@ function getStageIndexFromUrl() {
 function initStage(stage, stageIndex, stagesCount, dictionary) {
   stageIsComplete = false;
   stage = stages[stageIndex];
-  stageResult = getResultFromText(stage.regexp, stage.text);
+  stageResult = getResultFromText(new RegExp(stage.regexp, 'g'), stage.text);
 
   initNavButtons(stageIndex, stagesCount);
 
@@ -150,18 +150,36 @@ function onEditorInput() {
   stage = stages[stageIndex];
 
   if (editor.value) {
-    userResult = getResultFromText(editor.value, stage.text);
+    clearProgressCommentary();
 
-    textField.innerHTML = userResult.editedText;
-    updateUserProgress(userResult.count);
+    try {
+      updateEditorErrorHighlight();
+      regexp = new RegExp(editor.value, 'g');
+      userResult = getResultFromText(regexp, stage.text);
 
-    if (isIndexesEquals(userResult.indexesList, stageResult.indexesList)) {
-      stageComplete();
+      textField.innerHTML = userResult.editedText;
+      updateUserProgress(userResult.count, userResult.indexesList.length);
+
+      if (isIndexesEquals(userResult.indexesList, stageResult.indexesList)) {
+        stageComplete();
+      }
+    } catch (err) {
+      updateEditorErrorHighlight(true);
     }
   } else {
     textField.innerHTML = stage.text;
 
+    updateEditorErrorHighlight(false);
     updateUserProgress(0);
+    clearProgressCommentary();
+  }
+}
+
+function updateEditorErrorHighlight(err) {
+  if (err) {
+    document.querySelector('.code-input').classList.add('code-input--error');
+  } else {
+    document.querySelector('.code-input').classList.remove('code-input--error');
   }
 }
 
@@ -277,7 +295,6 @@ function isIndexesEquals(indexes1, indexes2) {
 
 function getResultFromText(regexp, text) {
   indexesList = []
-  regexp = new RegExp(regexp, 'g');
 
   lastIndex = 0;
   editedText = '';
@@ -316,7 +333,7 @@ function correlatesIndexesCount(indexes1, indexes2) {
   return count;
 }
 
-function updateUserProgress(matchesCount) {
+function updateUserProgress(matchesCount, allMatches) {
   stageText = stages[stageIndex].text;
   stageRegexp = new RegExp(stages[stageIndex].regexp, 'g');
   purposeCount = stageText.match(stageRegexp).length;
@@ -324,8 +341,14 @@ function updateUserProgress(matchesCount) {
 
   progressField = document.querySelector('.progress-count');
   progressField.innerHTML = progressReport;
+
+  progressCommentary = document.querySelector('.progress-commentary');
+
   if (matchesCount == purposeCount) {
     progressField.classList.add('progress-count-complete');
+    if (allMatches && allMatches > matchesCount) {
+      progressCommentary.innerHTML = 'А также лишних совпадений: ' + (allMatches - matchesCount) + '.';
+    }
   } else {
     progressField.classList.remove('progress-count-complete');
   }
