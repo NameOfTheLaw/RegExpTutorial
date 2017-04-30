@@ -31,10 +31,37 @@ function initStage(stage, stageIndex, stagesCount, dictionary) {
   stage = stages[stageIndex];
   stageResult = getResultFromText(stage.regexp, stage.text);
 
+  initNavButtons(stageIndex, stagesCount);
+
   renderStageNumeration(stageIndex, stages.length);
   renderStage(stage, dictionary);
 
   updatePageAddress(stageIndex+1);
+}
+
+function initNavButtons(stageIndex, stagesCount) {
+  prevBtn = document.querySelector('.nav-btn-prev');
+  nextBtn = document.querySelector('.nav-btn-next');
+
+  if (stageIndex == 0) {
+    prevBtn.classList.add('nav-btn-disabled');
+    nextBtn.classList.remove('nav-btn-disabled');
+
+    prevBtn.removeEventListener('click', moveToPrevStage);
+    nextBtn.addEventListener('click', moveToNextStage);
+  } else if (stageIndex == stagesCount - 1) {
+    prevBtn.classList.remove('nav-btn-disabled');
+    nextBtn.classList.add('nav-btn-disabled');
+
+    prevBtn.addEventListener('click', moveToPrevStage);
+    nextBtn.removeEventListener('click', moveToNextStage);
+  } else {
+    prevBtn.classList.remove('nav-btn-disabled');
+    nextBtn.classList.remove('nav-btn-disabled');
+
+    prevBtn.addEventListener('click', moveToPrevStage);
+    nextBtn.addEventListener('click', moveToNextStage);
+  }
 }
 
 function updatePageAddress(index) {
@@ -60,7 +87,7 @@ function initEditorListener() {
 }
 
 function renderStageNumeration(stageIndex, stagesCount) {
-  courseProgressStr = (stageIndex + 1) + "/" + stagesCount;
+  courseProgressStr = "{" + (stageIndex + 1) + ", " + stagesCount + "}";
   document.querySelector('.course-part-number').innerHTML = courseProgressStr;
 }
 
@@ -77,7 +104,7 @@ function renderStage(stage, dictionary) {
 
 function renderDictionary(dictionary, lastIndex) {
   notesList = document.querySelector('.notes-list');
-  
+
   while (notesList.firstChild) {
     notesList.removeChild(notesList.firstChild);
   }
@@ -166,6 +193,16 @@ function moveToNextStage() {
     clearProgressCommentary();
     clearEditor();
   }
+}
+
+function moveToPrevStage() {
+  stageIndex--;
+
+  initStage(stages[stageIndex], stageIndex, stages.length, dictionary);
+
+  destroyNextStageButton();
+  clearProgressCommentary();
+  clearEditor();
 }
 
 function finishExercise() {
